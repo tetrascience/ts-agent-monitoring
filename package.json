@@ -1,0 +1,44 @@
+{
+  "name": "ts-agent-monitoring",
+  "version": "0.1.0",
+  "bin": {
+    "ts-agent-monitoring": "bin/ts-agent-monitoring.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "postbuild": "npm run-script lint:check",
+    "posttest": "npm run-script format",
+    "format": "npm run-script lint:fix",
+    "lint:run": "eslint --ext .json,.ts .",
+    "lint:check": "npm run-script lint:run --",
+    "lint:fix": "npm run-script lint:run -- --fix",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.137",
+    "@types/jest": "^29.5.12",
+    "@types/node": "20.11.19",
+    "@typescript-eslint/eslint-plugin": "^7.6.0",
+    "@typescript-eslint/parser": "^7.6.0",
+    "aws-cdk": "2.133.0",
+    "aws-sdk": "^2.1594.0",
+    "esbuild": "0.20.2",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "jest": "^29.7.0",
+    "prettier": "^3.2.5",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.3.3"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "2.133.0",
+    "axios": "^1.6.8",
+    "constructs": "^10.0.0",
+    "source-map-support": "^0.5.21"
+  }
+}

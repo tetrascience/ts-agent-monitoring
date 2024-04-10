@@ -43,7 +43,24 @@ The following `npm` scripts are defined for convenience:
 
 ## Overview
 
-The TetraScience Agents produce a number of structured logs and metrics which provide insight into the execution of the agents. There is not, however, a productized solution for monitoring these metrics.  This repository is designed to be a starting point to leverage AWS CloudWatch to build a monitoring system (metrics and alarms) for your agents.
+The TetraScience Agents produce a number of structured logs and metrics which provide insight into the execution of the agents. There is not, however, a productized solution for monitoring these metrics.  This repository is a showcase of how to leverage AWS CloudWatch to build a monitoring system (metrics and alarms) for your agents.
+
+### Metrics
+
+| Metric | Pattern | Dimensions | Value |
+| ------ | ------- | ---------- | ----- |
+| AgentMonitoring/PerPathScanDurationInMs | { $.event.type = "agents.filelog.scanCompleted.v1" } | - orgSlug<br>- agentId<br>- path | Scan duration in milliseconds |
+| AgentMonitoring/FileUploadLatencyInSeconds | { $.event.type = "agents.filelog.fileUploadCompleted.v1" } | - orgSlug<br>- agentId | Upload latency in seconds |
+| AgentMonitoring/HeartBeatCount | { $.event.type = "agents.common.heartbeat.v1" } | - orgSlug<br>- agentId | 1 |
+| AgentMonitoring/PerPathScanCompletedCount | { $.event.type = "agents.filelog.scanCompleted.v1" } | - orgSlug<br>- agentId<br>- path | 1 |
+| AgentMonitoring/PerPathValidationFailedCount | { $.event.type = "agents.filelog.pathValidationFailed.v1" } | - orgSlug<br>- agentId<br>- path | 1 |
+| AgentMonitoring/PerPathScanErrorCount | { $.event.type = "agents.filelog.scanError.v1" } | - orgSlug<br>- agentId<br>- path | 1 |
+| AgentMonitoring/UploadCompletedCount | { $.event.type = "agents.filelog.fileUploadCompleted.v1" } | - orgSlug<br>- agentId | 1 |
+| AgentMonitoring/UploadFailedCount | { $.event.type = "agents.filelog.fileUploadFailed.v1" } | - orgSlug<br>- agentId | 1 |
+| AgentMonitoring/ArchiveCompletedCount | { $.event.type = "agents.filelog.fileArchiveCompleted.v1" } | - orgSlug<br>- agentId | 1 |
+| AgentMonitoring/ArchiveFailedCount | { $.event.type = "agents.filelog.fileArchiveFailed.v1" } | - orgSlug<br>- agentId | 1 |
+| AgentMonitoring/DeleteCompletedCount | { $.event.type = "agents.filelog.archiveFileDeleteCompleted.v1" } | - orgSlug<br>- agentId | 1 |
+| AgentMonitoring/DeleteFailedCount | { $.event.type = "agents.filelog.archiveFileDeleteFailed.v1" } | - orgSlug<br>- agentId | 1 |
 
 ## Deployment
 

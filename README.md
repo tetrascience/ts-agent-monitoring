@@ -56,7 +56,7 @@ cdk deploy --context tsApiBaseUrl=https://api.tetrascience.com --context tsAuthT
 
 ## Contribute
 
-We welcome contributions from the community that improve observability and monitoring of the agents. [Here are more details on how to contribute.](https://github.com/tetrascience/ts-agent-monitoring/blob/main/Contributing.md)
+We welcome contributions from the community that improve observability and monitoring of the agents. [Here are more details on how to contribute.](https://github.com/tetrascience/ts-agent-monitoring/blob/main/CONTRIBUTING.md)
 
 ## Disclaimer
 

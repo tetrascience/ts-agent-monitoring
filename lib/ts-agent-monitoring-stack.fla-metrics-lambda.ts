@@ -36,7 +36,7 @@ export async function handler(event: CloudWatchLogsEvent) {
           Namespace: 'AgentMonitoring',
           MetricData: [
             {
-              MetricName: 'PerPathScanDuration',
+              MetricName: 'PerPathScanDurationInMs',
               Dimensions: [
                 {
                   Name: 'orgSlug',
@@ -95,7 +95,7 @@ function generateFileLatencyMetricData(
   const latencyInSeconds = (Date.parse(event.timestamp) - latencyStartDate) / 1000
 
   return {
-    MetricName: 'FileUploadLatency',
+    MetricName: 'FileUploadLatencyInSeconds',
     Dimensions: [
       {
         Name: 'orgSlug',

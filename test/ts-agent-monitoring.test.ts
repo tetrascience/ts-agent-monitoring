@@ -8,6 +8,8 @@ test('FLA Lambda and MetricFilters Created', () => {
   const agent2Id = '9cff0bce-119a-4fdd-aaf9-9201a1073bea'
   const agent3Id = 'f3691292-283b-4747-81dd-268dfe1229c8'
   const stack = new TsAgentMonitoring.TsAgentMonitoringStack(app, 'MyTestStack', {
+    tsApiUrl: '',
+    tsAuthToken: '',
     agents: [
       { id: agent1Id, orgSlug: 'test', type: 'file-log' },
       { id: agent2Id, orgSlug: 'test', type: 'file-log' },
@@ -48,6 +50,8 @@ test('Generate Metric documentation', () => {
   const app = new cdk.App()
   const agentId = 'b4a31b69-0719-4d05-9ded-5677df4be65f'
   const stack = new TsAgentMonitoring.TsAgentMonitoringStack(app, 'MyTestStack', {
+    tsApiUrl: '',
+    tsAuthToken: '',
     agents: [{ id: agentId, orgSlug: 'test', type: 'file-log' }],
   })
 

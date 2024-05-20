@@ -4,6 +4,7 @@ import * as logs from 'aws-cdk-lib/aws-logs'
 import * as lambda_nodejs from 'aws-cdk-lib/aws-lambda-nodejs'
 import * as destinations from 'aws-cdk-lib/aws-logs-destinations'
 import { Runtime } from 'aws-cdk-lib/aws-lambda'
+import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager'
 
 export interface Agent {
   id: string
@@ -13,6 +14,8 @@ export interface Agent {
 
 interface AgentMonitoringStackProps extends cdk.StackProps {
   agents: Agent[]
+  tsApiUrl: string
+  tsAuthToken: string
 }
 
 export class TsAgentMonitoringStack extends cdk.Stack {
@@ -21,14 +24,31 @@ export class TsAgentMonitoringStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: AgentMonitoringStackProps) {
     super(scope, id, props)
 
+    // create a secret for the auth token
+    // todo: if an existing secret name is passed in, use it instead
+    const tsAuthTokenSecret = new secretsmanager.Secret(this, 'tsAuthTokenSecret', {
+      secretStringValue: cdk.SecretValue.unsafePlainText(props.tsAuthToken),
+    })
+
     const fileLogAgentMetricsGenerationLambda = new lambda_nodejs.NodejsFunction(this, 'fla-metrics-lambda', {
       runtime: Runtime.NODEJS_20_X,
+      environment: {
+        TETRASCIENCE_API_URL: props.tsApiUrl,
+        TETRASCIENCE_AUTH_TOKEN_SECRET_ARN: tsAuthTokenSecret.secretArn,
+      },
     })
 
     fileLogAgentMetricsGenerationLambda.addToRolePolicy(
       new cdk.aws_iam.PolicyStatement({
         actions: ['cloudwatch:PutMetricData'],
         resources: ['*'], // todo: scope this down
+      }),
+    )
+
+    fileLogAgentMetricsGenerationLambda.addToRolePolicy(
+      new cdk.aws_iam.PolicyStatement({
+        actions: ['secretsmanager:GetSecretValue'],
+        resources: [tsAuthTokenSecret.secretArn],
       }),
     )
 

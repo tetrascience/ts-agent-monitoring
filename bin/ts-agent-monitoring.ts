@@ -40,6 +40,8 @@ async function main() {
 
   new TsAgentMonitoringStack(app, 'TsAgentMonitoringStack', {
     agents,
+    tsApiUrl: tdpApiBaseUrl,
+    tsAuthToken: authToken,
     env: { account, region },
   })
 }
